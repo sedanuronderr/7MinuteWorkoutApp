@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="oval">
-    <stroke
-        android:width="5dp"
-        android:color="@color/colorAccent" />
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="#C4C4C4">
+    <item android:id="@android:id/mask">
+        <shape android:shape="oval">
+            <solid android:color="#000000" />
+        </shape>
+    </item>
 
-    <solid android:color="#FFFFFF" />
-</shape>
+    <item android:drawable="@drawable/item_circular_color_accent_border" />
+</ripple>
