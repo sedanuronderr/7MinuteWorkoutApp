@@ -6,6 +6,7 @@ import android.os.CountDownTimer
 import android.view.View
 import android.widget.Toast
 import com.seda.a7minuteworkoutapp.databinding.ActivityExerciseBinding
+import com.seda.a7minuteworkoutapp.model.ExerciseModel
 
 class ExerciseActivity : AppCompatActivity() {
     private var binding:ActivityExerciseBinding? = null
@@ -14,6 +15,11 @@ class ExerciseActivity : AppCompatActivity() {
     // START
     private var exerciseTimer: CountDownTimer? = null // Variable for Exercise Timer and later on we will initialize it.
     private var exerciseProgress =0
+    private var exerciseTimerDuration:Long = 30
+
+    private var exerciseList:ArrayList<ExerciseModel>?=null
+    private var currentExercisePosition = -1
+
         override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityExerciseBinding.inflate(layoutInflater)
@@ -24,6 +30,8 @@ class ExerciseActivity : AppCompatActivity() {
         if (supportActionBar != null){
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
         }
+            exerciseList = Constants.defaultExercise()
+
         binding?.toolbarExercise?.setNavigationOnClickListener {
             onBackPressed()
         }
@@ -57,6 +65,7 @@ class ExerciseActivity : AppCompatActivity() {
 
             override fun onFinish() {
                 // When the 10 seconds will complete this will be executed.
+                currentExercisePosition++
               setupExerciseView()
             }
         }.start()
@@ -85,8 +94,8 @@ class ExerciseActivity : AppCompatActivity() {
         exerciseTimer = object : CountDownTimer(30000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 exerciseProgress++
-                binding?.progressBarExercise?.progress = 30 - exerciseProgress
-                binding?.tvTimerExercise?.text = (30 - exerciseProgress).toString()
+                binding?.progressBarExercise?.progress = exerciseTimerDuration.toInt() - exerciseProgress
+                binding?.tvTimerExercise?.text = (exerciseTimerDuration.toInt() - exerciseProgress).toString()
             }
 
             override fun onFinish() {
