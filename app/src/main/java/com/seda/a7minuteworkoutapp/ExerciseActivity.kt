@@ -39,7 +39,11 @@ class ExerciseActivity : AppCompatActivity() {
         setupRestView()
     }
     private fun setupRestView() {
-
+        binding?.flProgressBar?.visibility = View.VISIBLE
+        binding?.tvTitle?.visibility =View.VISIBLE
+        binding?.tvExerciseName?.visibility =View.INVISIBLE
+        binding?.flExerciseView?.visibility = View.INVISIBLE
+        binding?.ivImage?.visibility=View.INVISIBLE
 
         if (restTimer != null) {
             restTimer!!.cancel()
@@ -87,7 +91,7 @@ class ExerciseActivity : AppCompatActivity() {
         }
 
             binding?.ivImage?.setImageResource(exerciseList!![currentExercisePosition].image)
-
+            binding?.tvExerciseName?.text = exerciseList!![currentExercisePosition].name
 
         setExerciseProgressBar()
     }
@@ -104,11 +108,16 @@ class ExerciseActivity : AppCompatActivity() {
             }
 
             override fun onFinish() {
-                Toast.makeText(
-                    this@ExerciseActivity,
-                    "This is 30 seconds completed so now we will add all the exercises.",
-                    Toast.LENGTH_SHORT
-                ).show()
+              if(currentExercisePosition < exerciseList?.size!! - 1){
+                  setupRestView()
+              }
+              else{
+                  Toast.makeText(
+                      this@ExerciseActivity,
+                      "Congratulations! You have completed the 7 minutes workout.",
+                      Toast.LENGTH_SHORT
+                  ).show()
+              }
             }
         }.start()
     }

@@ -23,6 +23,7 @@
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:text="GET READY FOR"
         android:textColor="@color/colorAccent"
         android:textSize="22sp"
@@ -74,16 +75,20 @@
                 tools:text="10" />
         </LinearLayout>
     </FrameLayout>
+
     <ImageView
         android:id="@+id/ivImage"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:contentDescription="@string/image"
         android:scaleType="fitXY"
         android:src="@drawable/ic_jumping_jacks"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@id/tvExerciseName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbarExercise" />
+
     <TextView
         android:id="@+id/tvExerciseName"
         android:layout_width="wrap_content"
@@ -95,20 +100,22 @@
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ivImage"
+        app:layout_constraintTop_toBottomOf="@+id/ivImage"
         tools:visibility="visible" />
+
     <FrameLayout
         android:id="@+id/flExerciseView"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginTop="10dp"
-        android:visibility="gone"
-        tools:visibility="visible"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/item_circular_color_accent_border"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbarExercise">
+        app:layout_constraintTop_toBottomOf="@id/tvExerciseName"
+        tools:visibility="visible">
 
         <ProgressBar
             android:id="@+id/progressBarExercise"
