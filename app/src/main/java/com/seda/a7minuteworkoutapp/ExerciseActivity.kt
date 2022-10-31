@@ -3,12 +3,16 @@ package com.seda.a7minuteworkoutapp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.speech.tts.TextToSpeech
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.seda.a7minuteworkoutapp.databinding.ActivityExerciseBinding
 import com.seda.a7minuteworkoutapp.model.ExerciseModel
+import java.util.*
+import kotlin.collections.ArrayList
 
-class ExerciseActivity : AppCompatActivity() {
+class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private var binding:ActivityExerciseBinding? = null
     private var restTimer: CountDownTimer? = null // Variable for Rest Timer and later on we will initialize it.
     private var restProgress = 0
@@ -19,6 +23,9 @@ class ExerciseActivity : AppCompatActivity() {
 
     private var exerciseList:ArrayList<ExerciseModel>?=null
     private var currentExercisePosition = -1
+
+    // Metin konuşma
+    private var tts :TextToSpeech?=null
 
         override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +38,8 @@ class ExerciseActivity : AppCompatActivity() {
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
         }
             exerciseList = Constants.defaultExercise()
+
+            tts = TextToSpeech(this, this)
 
         binding?.toolbarExercise?.setNavigationOnClickListener {
             onBackPressed()
@@ -89,7 +98,7 @@ class ExerciseActivity : AppCompatActivity() {
             exerciseTimer?.cancel()
             exerciseProgress = 0
         }
-
+speakOut(exerciseList!![currentExercisePosition].name)
             binding?.ivImage?.setImageResource(exerciseList!![currentExercisePosition].image)
             binding?.tvExerciseName?.text = exerciseList!![currentExercisePosition].name
 
@@ -120,5 +129,40 @@ class ExerciseActivity : AppCompatActivity() {
               }
             }
         }.start()
+    }
+
+    override fun onInit(status: Int) {
+
+        if (status == TextToSpeech.SUCCESS) {
+            // set US English as language for tts
+            val result = tts?.setLanguage(Locale.US)
+
+            if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                Log.e("TTS", "The Language specified is not supported!")
+            }
+
+        } else {
+            Log.e("TTS", "Initialization Failed!")
+        }
+    }
+
+    private fun speakOut(text: String) {
+        tts!!.speak(text, TextToSpeech.QUEUE_FLUSH, null, "")
+    }
+    public override fun onDestroy() {
+        if (restTimer != null) {
+            restTimer?.cancel()
+            restProgress = 0
+        }
+
+        // TODO (Step 7 - Shutting down the Text to Speech feature when activity is destroyed.)
+        // START
+        if (tts != null) {
+            tts!!.stop()
+            tts!!.shutdown()
+        }
+        // END
+        super.onDestroy()
+        binding = null
     }
 }
