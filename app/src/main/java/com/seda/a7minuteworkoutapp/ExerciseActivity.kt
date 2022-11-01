@@ -1,5 +1,8 @@
 package com.seda.a7minuteworkoutapp
 
+import android.media.AudioManager
+import android.media.MediaPlayer
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -9,6 +12,7 @@ import android.view.View
 import android.widget.Toast
 import com.seda.a7minuteworkoutapp.databinding.ActivityExerciseBinding
 import com.seda.a7minuteworkoutapp.model.ExerciseModel
+
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -26,6 +30,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     // Metin konuşma
     private var tts :TextToSpeech?=null
+    private var player: MediaPlayer? = null
 
         override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,16 +43,32 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
         }
             exerciseList = Constants.defaultExercise()
-
+            setupRestView()
             tts = TextToSpeech(this, this)
 
         binding?.toolbarExercise?.setNavigationOnClickListener {
             onBackPressed()
         }
 
-        setupRestView()
+
     }
     private fun setupRestView() {
+player = MediaPlayer()
+
+        try {
+            val soundURI =
+                Uri.parse("android.resource://com.seda.a7minuteworkoutapp/" + R.raw.press_start)
+            player = MediaPlayer.create(applicationContext, R.raw.press_start)
+
+            player?.isLooping = false // Sets the player to be looping or non-looping.
+            player?.prepare()
+            player?.start() // Starts Playback.
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+
+
         binding?.flProgressBar?.visibility = View.VISIBLE
         binding?.tvTitle?.visibility =View.VISIBLE
         binding?.tvExerciseName?.visibility =View.INVISIBLE
@@ -164,5 +185,7 @@ speakOut(exerciseList!![currentExercisePosition].name)
         // END
         super.onDestroy()
         binding = null
+
+
     }
 }
