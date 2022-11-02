@@ -10,6 +10,8 @@ import android.speech.tts.TextToSpeech
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.seda.a7minuteworkoutapp.adapter.ExerciseStatusAdapter
 import com.seda.a7minuteworkoutapp.databinding.ActivityExerciseBinding
 import com.seda.a7minuteworkoutapp.model.ExerciseModel
 
@@ -27,6 +29,9 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     private var exerciseList:ArrayList<ExerciseModel>?=null
     private var currentExercisePosition = -1
+
+    private var exerciseAdapter: ExerciseStatusAdapter? = null
+
 
     // Metin konuşma
     private var tts :TextToSpeech?=null
@@ -49,9 +54,27 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         binding?.toolbarExercise?.setNavigationOnClickListener {
             onBackPressed()
         }
-
+setupExerciseStatusRecyclerView()
 
     }
+    private fun setupExerciseStatusRecyclerView() {
+
+        // Defining a layout manager for the recycle view
+        // Here we have used a LinearLayout Manager with horizontal scroll.
+        binding?.rvExerciseStatus?.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+
+        // As the adapter expects the exercises list and context so initialize it passing it.
+        exerciseAdapter = ExerciseStatusAdapter(exerciseList!!)
+
+        // Adapter class is attached to recycler view
+        binding?.rvExerciseStatus?.adapter = exerciseAdapter
+    }
+
+
+
+
+
     private fun setupRestView() {
 player = MediaPlayer()
 

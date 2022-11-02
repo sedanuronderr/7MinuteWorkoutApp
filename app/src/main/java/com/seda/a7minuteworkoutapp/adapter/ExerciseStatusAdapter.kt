@@ -23,19 +23,14 @@ class ExerciseStatusAdapter(val items: ArrayList<ExerciseModel>) :
 
         val model: ExerciseModel = items[position]
 
-        holder.tvItem.text = model.name
+        holder.tvItem.text = model.id.toString()
     }
 
-    /**
-     * Gets the number of items in the list
-     */
     override fun getItemCount(): Int {
         return items.size
     }
 
-    /**
-     * A ViewHolder describes an item view and metadata about its place within the RecyclerView.
-     */
+
     class ViewHolder(binding: ItemExerciseStatusBinding) : RecyclerView.ViewHolder(binding.root) {
         // Holds the TextView that will add each item to
         val tvItem = binding.tvItem
