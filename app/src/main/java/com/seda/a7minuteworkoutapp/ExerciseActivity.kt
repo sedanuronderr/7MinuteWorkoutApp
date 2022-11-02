@@ -123,6 +123,8 @@ player = MediaPlayer()
             override fun onFinish() {
                 // When the 10 seconds will complete this will be executed.
                 currentExercisePosition++
+                exerciseList?.get(currentExercisePosition)?.isSelected= true
+                exerciseAdapter?.notifyDataSetChanged()
               setupExerciseView()
             }
         }.start()
@@ -161,6 +163,11 @@ speakOut(exerciseList!![currentExercisePosition].name)
             }
 
             override fun onFinish() {
+                exerciseList!![currentExercisePosition].isSelected= false // exercise is completed so selection is set to false
+                exerciseList!![currentExercisePosition].isCompleted =true
+                exerciseAdapter?.notifyDataSetChanged()
+
+
               if(currentExercisePosition < exerciseList?.size!! - 1){
                   setupRestView()
               }
