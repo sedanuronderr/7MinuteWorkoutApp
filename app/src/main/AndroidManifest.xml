@@ -2,15 +2,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.seda.a7minuteworkoutapp">
-<queries>
-    <intent>
-        <action android:name="android.intent.action.TTS_SERVICE" />
-    </intent>
-</queries>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" >
 
-    </uses-permission>
-        <uses-permission android:name="android.permission.INTERNET"/>
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.TTS_SERVICE" />
+        </intent>
+    </queries>
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission>
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -21,6 +22,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.7MinuteWorkoutApp"
         tools:targetApi="31">
+        <activity
+            android:name=".FinishActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".ExerciseActivity"
             android:exported="false" />
