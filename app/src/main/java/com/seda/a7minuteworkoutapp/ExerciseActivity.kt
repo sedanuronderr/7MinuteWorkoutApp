@@ -1,5 +1,6 @@
 package com.seda.a7minuteworkoutapp
 
+import android.app.Dialog
 import android.content.Intent
 import android.media.AudioManager
 import android.media.MediaPlayer
@@ -14,6 +15,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.seda.a7minuteworkoutapp.adapter.ExerciseStatusAdapter
 import com.seda.a7minuteworkoutapp.databinding.ActivityExerciseBinding
+import com.seda.a7minuteworkoutapp.databinding.DialogCustomBackConfirmationBinding
 import com.seda.a7minuteworkoutapp.model.ExerciseModel
 
 import java.util.*
@@ -53,11 +55,37 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             tts = TextToSpeech(this, this)
 
         binding?.toolbarExercise?.setNavigationOnClickListener {
-            onBackPressed()
+
+            customDiaologForBackButton()
         }
 setupExerciseStatusRecyclerView()
 
     }
+    override fun onBackPressed() {
+
+customDiaologForBackButton()
+    }
+    private fun customDiaologForBackButton() {
+
+     val customDialog = Dialog(this)
+        val dialogBinding = DialogCustomBackConfirmationBinding.inflate(layoutInflater)
+ customDialog.setContentView(dialogBinding.root)
+        customDialog.setCanceledOnTouchOutside(false)
+        dialogBinding.tvYes.setOnClickListener {
+            //Todo 6 We need to specify that we are finishing this activity if not the player
+            // continues beeping even after the screen is not visibile
+            this@ExerciseActivity.finish()
+            customDialog.dismiss() // Dialog will be dismissed
+        }
+        dialogBinding.tvNo.setOnClickListener {
+            customDialog.dismiss()
+        }
+        customDialog.show()
+
+    }
+
+
+
     private fun setupExerciseStatusRecyclerView() {
 
         // Defining a layout manager for the recycle view
