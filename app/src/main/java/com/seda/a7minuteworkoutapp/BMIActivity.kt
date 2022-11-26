@@ -10,8 +10,7 @@ import java.math.RoundingMode
 
 class BMIActivity : AppCompatActivity() {
     private var binding: ActivityBmiBinding? = null
-    var bmiLabel:String= ""
-    var bmiDescription:String= ""
+
         override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
             binding = ActivityBmiBinding.inflate(layoutInflater)
@@ -25,9 +24,11 @@ class BMIActivity : AppCompatActivity() {
             }
             binding?.btnCalculateUnits?.setOnClickListener {
                 if(validateMetricUnits()){
-                    val heightValue:Float = binding!!.etMetricUnitHeight.text.toString().toFloat()
+                    val heightValue:Float = binding!!.etMetricUnitHeight.text.toString().toFloat()/100
                     val weightValue: Float = binding?.etMetricUnitWeight?.text.toString().toFloat()
                     val bmi = weightValue / (heightValue * heightValue)
+                    Toast.makeText(this@BMIActivity, "$bmi", Toast.LENGTH_SHORT)
+                        .show()
                     displayBMIResult(bmi)
                 }else {
                     Toast.makeText(this@BMIActivity, "Please enter valid values.", Toast.LENGTH_SHORT)
@@ -35,9 +36,20 @@ class BMIActivity : AppCompatActivity() {
                 }
             }
         }
+    private fun validateMetricUnits(): Boolean {
+        var isValid = true
 
+        if (binding?.etMetricUnitWeight?.text.toString().isEmpty()) {
+            isValid = false
+        } else if (binding?.etMetricUnitHeight?.text.toString().isEmpty()) {
+            isValid = false
+        }
+
+        return isValid
+    }
     private fun displayBMIResult(bmi: Float) {
-
+        val bmiLabel:String
+        val bmiDescription:String
         if (bmi.compareTo(15f) <= 0) {
             bmiLabel = "Very severely underweight"
             bmiDescription = "Oops! You really need to take better care of yourself! Eat more!"
@@ -82,15 +94,5 @@ class BMIActivity : AppCompatActivity() {
 
     }
 
-    private fun validateMetricUnits(): Boolean {
-        var isValid = true
 
-        if (binding?.etMetricUnitWeight?.text.toString().isEmpty()) {
-            isValid = false
-        } else if (binding?.etMetricUnitHeight?.text.toString().isEmpty()) {
-            isValid = false
-        }
-
-        return isValid
-    }
 }
