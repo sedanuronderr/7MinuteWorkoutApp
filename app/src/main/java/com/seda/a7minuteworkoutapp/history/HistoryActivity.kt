@@ -1,4 +1,4 @@
-package com.seda.a7minuteworkoutapp
+package com.seda.a7minuteworkoutapp.history
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
