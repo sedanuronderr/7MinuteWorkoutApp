@@ -16,7 +16,7 @@ abstract class HistoryDatabase: RoomDatabase() {
         private var INSTANCE: HistoryDatabase? = null
 
 
-        fun getInstance(context: Context): HistoryDatabase {
+       fun getInstance(context: Context): HistoryDatabase {
             // Multiple threads can ask for the database at the same time, ensure we only initialize
             // it once by using synchronized. Only one thread may enter a synchronized block at a
             // time.
