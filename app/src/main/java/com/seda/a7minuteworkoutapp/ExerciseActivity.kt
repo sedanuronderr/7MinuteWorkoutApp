@@ -141,12 +141,12 @@ player = MediaPlayer()
 
 
         // Here we have started a timer of 10 seconds so the 10000 is milliseconds is 10 seconds and the countdown interval is 1 second so it 1000.
-        restTimer = object : CountDownTimer(1000, 1000) {
+        restTimer = object : CountDownTimer(3000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 restProgress++ // It is increased by 1
-                binding?.progressBar?.progress = 10 - restProgress // Indicates progress bar progress
+                binding?.progressBar?.progress = 3 - restProgress // Indicates progress bar progress
                 binding?.tvTimer?.text =
-                    (10 - restProgress).toString()  // Current progress is set to text view in terms of seconds.
+                    (3 - restProgress).toString()  // Current progress is set to text view in terms of seconds.
             }
 
             override fun onFinish() {

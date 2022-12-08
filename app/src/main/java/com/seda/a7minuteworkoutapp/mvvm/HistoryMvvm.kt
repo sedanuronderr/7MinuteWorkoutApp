@@ -6,11 +6,11 @@ import com.seda.a7minuteworkoutapp.history.HistoryEntity
 import com.seda.a7minuteworkoutapp.history.HistoryRepository
 import kotlinx.coroutines.launch
 
-class HistoryMvvm(val repository: HistoryRepository):ViewModel() {
+class HistoryMvvm(private val repository: HistoryRepository):ViewModel() {
 
     fun insertTodo(history: HistoryEntity)=viewModelScope.launch {
 
         repository.insertTodo(history)
     }
-    val allhistory = repository.allhistoryquery()
+    val allhistory =  repository.allhistoryquery()
 }

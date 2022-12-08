@@ -53,7 +53,7 @@
 
             android:background="@drawable/circular_progress_gray"
             android:indeterminate="false"
-            android:max="10"
+            android:max="3"
             android:progress="100"
             android:progressDrawable="@drawable/circular_progress_bar"
             android:rotation="-90" />
@@ -125,7 +125,7 @@
             android:layout_gravity="center"
             android:background="@drawable/circular_progress_gray"
             android:indeterminate="false"
-            android:max="30"
+            android:max="3"
             android:progress="300"
             android:progressDrawable="@drawable/circular_progress_bar"
             android:rotation="-90" />

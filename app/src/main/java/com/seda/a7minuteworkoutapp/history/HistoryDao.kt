@@ -13,5 +13,5 @@ interface HistoryDao {
     suspend fun insert(historyEntity: HistoryEntity)
 
     @Query("Select * from history_table")
-    fun fetchALlDates(): Flow<List<HistoryEntity>>
+     fun fetchALlDates(): Flow<List<HistoryEntity>>
 }
