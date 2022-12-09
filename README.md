@@ -1,5 +1,5 @@
 # 7MinuteWorkoutApp
-ViewBinding,Room Database,MVVM,Text to Speeds
+ViewBinding,Room Database,MVVM,Text to Speech
 
 <table>
 
