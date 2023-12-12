@@ -1,6 +1,6 @@
 # 7MinuteWorkoutApp
 
-ViewBinding,Room Database,MVVM,Text to Speech
+ViewBinding,Room Database,MVVM,Text to Speech  Jetpack libraries were used in the project.
 
 <table>
 
